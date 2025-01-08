@@ -31,7 +31,9 @@ def git_push():
 def schedule_task():
     random_hour = random.randint(0, 23)
     random_minute = random.randint(0, 59)
-    scheduled_time = f"{random_minute} {random_hour}"
+    
+    # Format the time in HH:mm format (24-hour format)
+    scheduled_time = f"{random_hour:02d}:{random_minute:02d}"
 
     # Use Task Scheduler to run the Python script at the random time
     task_name = "UpdateNumberTask"
@@ -41,7 +43,7 @@ def schedule_task():
     task_schedule_command = f'SchTasks /Create /SC DAILY /TN "{task_name}" /TR "{task_command}" /ST {scheduled_time}'
     subprocess.run(task_schedule_command, shell=True)
     
-    print(f"Task scheduled to run at {random_hour}:{random_minute} daily.")
+    print(f"Task scheduled to run at {scheduled_time} daily.")
 
 def main():
     current_number = read_number()
